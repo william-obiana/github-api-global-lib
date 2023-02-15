@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Terraform Init') {
             steps {
-                sh 'terraform -help'
+                sh 'terraform --help'
                 sh 'terraform init'
             }
         }
