@@ -1,15 +1,22 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'hashicorp/terraform:1.1.0'
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
+        }
+    }
 
     stages {
-        stage('Install Terraform') {
+        stage('Terraform Init') {
             steps {
                 sh 'terraform -version'
+                sh 'terraform init'
             }
         }
-        stage('Terraform apply') {
+
+        stage('Terraform Plan') {
             steps {
-                sh './terraform apply -auto-approve -no-color'
+                sh 'terraform plan'
             }
         }
     }
