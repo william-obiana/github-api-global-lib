@@ -1,6 +1,8 @@
 pipeline {
-    agent {
-        docker { image 'hashicorp/terraform' }
+    agent any
+
+    tools {
+       terraform 'terraform'
     }
 
     stages {
