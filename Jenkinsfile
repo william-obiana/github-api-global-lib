@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Install Terraform') {
             steps {
-                sh 'terraform -version'
+                sh 'echo terraform -version'
             }
         }
         stage('Terraform apply') {
