@@ -1,21 +1,28 @@
 pipeline {
-    agent any
-
-    tools {
-       terraform 'Terraform'
+  agent { label 'linux'}
+  options {
+    skipDefaultCheckout(true)
+  }
+  stages{
+    stage('clean workspace') {
+      steps {
+        cleanWs()
+      }
     }
-
-    stages {
-        stage('Terraform Init') {
-            steps {
-                sh 'terraform init'
-            }
-        }
-
-        stage('Terraform Plan') {
-            steps {
-                sh 'terraform plan'
-            }
-        }
+    stage('checkout') {
+      steps {
+        checkout scm
+      }
     }
+    stage('terraform') {
+      steps {
+        sh './terraformw apply -auto-approve -no-color'
+      }
+    }
+  }
+  post {
+    always {
+      cleanWs()
+    }
+  }
 }
