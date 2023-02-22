@@ -10,9 +10,9 @@ def call(String PYTHON_VERSION, String PACKAGE_DIR, String REQUIREMENTS_FILE, St
     }
 
     // if a target directory already exists, remove it
-    if (fileExists("/target")) {
-        echo "Folder /target found!"
-        sh "rm -rf /target"
+    if (fileExists("/tmp/target")) {
+        echo "Folder /tmp/target found!"
+        sh "rm -rf /tmp/target"
     }
 
     // create target directory and copy the contents of the PACKAGE_DIR to the target directory
