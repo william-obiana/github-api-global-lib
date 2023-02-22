@@ -20,7 +20,7 @@ def call(String PYTHON_VERSION, String PACKAGE_DIR, String REQUIREMENTS_FILE, St
     sh "cp -a ${PACKAGE_DIR}/. /tmp/target/"
 
     // navigate to target directory and install dependencies using pip
-    sh "cd /target"
+    sh "cd /tmp/target"
     sh "pip install -r ./${REQUIREMENTS_FILE} -t ./ --quiet"
 
     // zip file and create SHA256 hash of the file (this is for lambda to pick up changes)
