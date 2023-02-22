@@ -1,5 +1,5 @@
 // prerequisites: Python, pip, openssl and AWS credentials should already set up in the Jenkins environment.
-def call(String PYTHON_VERSION, String PACKAGE_DIR, String REQUIREMENTS_FILE, String S3_ARTIFACT_BUCKET_NAME, String S3_ARTIFACT_OUTPUT_PATH) {
+def call(String PYTHON_VERSION, String PACKAGE_DIR, String REQUIREMENTS_FILE, String S3_ARTIFACT_BUCKET_NAME, String S3_ARTIFACT_OUTPUT_PATH, String TARGET = "/tmp/target") {
     sh "env | sort"
 
     // checks if all the required arguments are provided
@@ -10,17 +10,17 @@ def call(String PYTHON_VERSION, String PACKAGE_DIR, String REQUIREMENTS_FILE, St
     }
 
     // if a target directory already exists, remove it
-    if (fileExists("/tmp/target")) {
-        echo "Folder /tmp/target found!"
-        sh "rm -rf /tmp/target"
+    if (fileExists(TARGET)) {
+        echo "Folder ${TARGET} found!"
+        sh "rm -rf ${TARGET}"
     }
 
     // create target directory and copy the contents of the PACKAGE_DIR to the target directory
-    sh "mkdir /tmp/target"
-    sh "cp -a ${PACKAGE_DIR}/. /tmp/target/"
+    sh "mkdir ${TARGET}"
+    sh "cp -a ${PACKAGE_DIR}/. ${TARGET}/"
 
     // navigate to target directory and install dependencies using pip
-    sh "cd /tmp/target"
+    sh "cd ${TARGET}"
     sh "pip install -r ./${REQUIREMENTS_FILE} -t ./ --quiet"
 
     // zip file and create SHA256 hash of the file (this is for lambda to pick up changes)
