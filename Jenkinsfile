@@ -1,28 +1,13 @@
+@Library('shared-library') _
+
 pipeline {
-  agent { label 'linux'}
-  options {
-    skipDefaultCheckout(true)
-  }
-  stages{
-    stage('clean workspace') {
-      steps {
-        cleanWs()
-      }
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                helloWorld(name: 'William', dayOfWeek: 'Thursday')
+            }
+        }
     }
-    stage('checkout') {
-      steps {
-        checkout scm
-      }
-    }
-    stage('terraform') {
-      steps {
-        sh './terraformw apply -auto-approve -no-color'
-      }
-    }
-  }
-  post {
-    always {
-      cleanWs()
-    }
-  }
 }
