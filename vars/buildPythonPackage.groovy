@@ -1,5 +1,5 @@
 // prerequisites: Python, pip, openssl and AWS credentials should already set up in the Jenkins environment.
-def buildPythonPackage(String PYTHON_VERSION, String PACKAGE_DIR, String REQUIREMENTS_FILE, String S3_ARTIFACT_BUCKET_NAME, String S3_ARTIFACT_OUTPUT_PATH) {
+def call(String PYTHON_VERSION, String PACKAGE_DIR, String REQUIREMENTS_FILE, String S3_ARTIFACT_BUCKET_NAME, String S3_ARTIFACT_OUTPUT_PATH) {
     sh "env | sort"
 
     // checks if all the required arguments are provided
