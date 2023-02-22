@@ -17,7 +17,7 @@ def call(String PYTHON_VERSION, String PACKAGE_DIR, String REQUIREMENTS_FILE, St
 
     // create target directory and copy the contents of the PACKAGE_DIR to the target directory
     sh "mkdir ${TARGET}"
-    sh "cp -a ${PACKAGE_DIR}/. ${TARGET}/"
+    sh "cp -a ${PACKAGE_DIR}lambda_function.py ${TARGET}/"
 
     // navigate to target directory and install dependencies using pip
     sh "cd ${TARGET}"
