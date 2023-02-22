@@ -31,9 +31,9 @@ pipeline {
             steps {
                 script {
                     buildPythonPackage(
-                        def PYTHON_VERSION = "3.8",
-                        def PACKAGE_DIR = libraryResource "lambda/lambda_function.py",
-                        def REQUIREMENTS_FILE = "requirements.txt",
+                        "3.8",
+                        libraryResource "lambda/lambda_function.py",
+                        "requirements.txt",
                         S3_ARTIFACT_BUCKET_NAME,
                         S3_ARTIFACT_OUTPUT_PATH
                     )
