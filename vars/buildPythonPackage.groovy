@@ -16,7 +16,7 @@ def call(String PYTHON_VERSION, String PACKAGE_DIR, String REQUIREMENTS_FILE, St
     }
 
     // create target directory and copy the contents of the PACKAGE_DIR to the target directory
-    sh "mkdir /target"
+    sh "sudo mkdir /target"
     sh "cp -a ${PACKAGE_DIR}/. /target/"
 
     // navigate to target directory and install dependencies using pip
