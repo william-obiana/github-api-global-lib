@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                helloWorld(name: 'William', dayOfWeek: 'Thursday')
+                helloWorldExternal(name: 'William', dayOfWeek: 'Thursday')
             }
         }
     }
