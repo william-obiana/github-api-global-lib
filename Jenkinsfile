@@ -17,7 +17,7 @@ pipeline {
 
     // add the environment variables in Jenkins UI and reference them in this Jenkinsfile
     environment {
-        PYTHON_VERSION = "${PYTHON_VERSION}"
+        PYTHON_VERSION = "3.8"
         PACKAGE_DIR = "${PACKAGE_DIR}"
         REQUIREMENTS_FILE = "${REQUIREMENTS_FILE}"
         S3_ARTIFACT_BUCKET_NAME = "${S3_ARTIFACT_BUCKET_NAME}"
