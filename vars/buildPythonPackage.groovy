@@ -2,9 +2,8 @@
 def call(String PYTHON_VERSION, String PACKAGE_DIR, String REQUIREMENTS_FILE, String S3_ARTIFACT_BUCKET_NAME, String S3_ARTIFACT_OUTPUT_PATH, String TARGET = "/tmp/target") {
     sh "env | sort"
 
-    sh "echo ${PYTHON_VERSION}"
-    sh "echo ${PACKAGE_DIR}"
-    sh "echo ${REQUIREMENTS_FILE}"
+    sh "PYTHON_VERSION = 3.8"
+    sh "REQUIREMENTS_FILE = requirements.txt"
 
     // checks if all the required arguments are provided
     if (PYTHON_VERSION == "" || PACKAGE_DIR == "" || REQUIREMENTS_FILE == "" || S3_ARTIFACT_BUCKET_NAME == "" || S3_ARTIFACT_OUTPUT_PATH == "") {

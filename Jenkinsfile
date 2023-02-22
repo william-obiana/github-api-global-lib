@@ -15,25 +15,25 @@
 pipeline {
     agent any
 
-//     // add the environment variables in Jenkins UI and reference them in this Jenkinsfile
-//     environment {
-//         PYTHON_VERSION = "${PYTHON_VERSION}"
-//         PACKAGE_DIR = "${PACKAGE_DIR}"
-//         REQUIREMENTS_FILE = "${REQUIREMENTS_FILE}"
-//         S3_ARTIFACT_BUCKET_NAME = "${S3_ARTIFACT_BUCKET_NAME}"
-//         S3_ARTIFACT_OUTPUT_PATH = "${S3_ARTIFACT_OUTPUT_PATH}"
-//         TEST_DIR = "${TEST_DIR}"
-//         PYTEST_ARGS = "${PYTEST_ARGS}"
-//     }
+    // add the environment variables in Jenkins UI and reference them in this Jenkinsfile
+    environment {
+        PYTHON_VERSION = "${PYTHON_VERSION}"
+        PACKAGE_DIR = "${PACKAGE_DIR}"
+        REQUIREMENTS_FILE = "${REQUIREMENTS_FILE}"
+        S3_ARTIFACT_BUCKET_NAME = "${S3_ARTIFACT_BUCKET_NAME}"
+        S3_ARTIFACT_OUTPUT_PATH = "${S3_ARTIFACT_OUTPUT_PATH}"
+        TEST_DIR = "${TEST_DIR}"
+        PYTEST_ARGS = "${PYTEST_ARGS}"
+    }
 
     stages {
         stage('Build Python Package') {
             steps {
                 script {
                     buildPythonPackage(
-                        "3.8",
+                        PYTHON_VERSION,
                         PACKAGE_DIR,
-                        "requirements.txt",
+                        REQUIREMENTS_FILE,
                         S3_ARTIFACT_BUCKET_NAME,
                         S3_ARTIFACT_OUTPUT_PATH
                     )
