@@ -1,8 +1,6 @@
 // prerequisites: Python, pip, openssl and AWS credentials should already set up in the Jenkins environment.
-def call(String PYTHON_VERSION, String PACKAGE_DIR, String REQUIREMENTS_FILE, String S3_ARTIFACT_BUCKET_NAME, String S3_ARTIFACT_OUTPUT_PATH, String TARGET = "/tmp/target") {
+def call(String PYTHON_VERSION, String PACKAGE_DIR = libraryResource "lambda/lambda_function.py", String REQUIREMENTS_FILE, String S3_ARTIFACT_BUCKET_NAME, String S3_ARTIFACT_OUTPUT_PATH, String TARGET = "/tmp/target") {
     sh "env | sort"
-
-    def PACKAGE_DIR = libraryResource "lambda/lambda_function.py"
 
     // checks if all the required arguments are provided
     if (PYTHON_VERSION == "" || PACKAGE_DIR == "" || REQUIREMENTS_FILE == "" || S3_ARTIFACT_BUCKET_NAME == "" || S3_ARTIFACT_OUTPUT_PATH == "") {
