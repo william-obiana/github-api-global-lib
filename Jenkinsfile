@@ -32,7 +32,7 @@ pipeline {
                 script {
                     buildPythonPackage(
                         "3.8",
-                        libraryResource "lambda/lambda_function.py",
+                        PACKAGE_DIR,
                         "requirements.txt",
                         S3_ARTIFACT_BUCKET_NAME,
                         S3_ARTIFACT_OUTPUT_PATH
