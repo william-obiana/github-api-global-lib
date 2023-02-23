@@ -26,6 +26,9 @@ def call(String PYTHON_VERSION, String PACKAGE_DIR, String REQUIREMENTS_FILE, St
     def scriptcontents2 = libraryResource 'lambda/requirements.txt'
     writeFile file: "${TARGET}/requirements.txt", text: scriptcontents2
 
+    sh "ls"
+    sh "cat ${TARGET}/requirements.txt"
+
     // navigate to target directory and install dependencies using pip
     sh "cd ${TARGET}"
     sh "ls"
