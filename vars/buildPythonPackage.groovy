@@ -17,15 +17,15 @@ def call(String PYTHON_VERSION, String PACKAGE_DIR, String REQUIREMENTS_FILE, St
 
     // create target directory and copy the contents of the PACKAGE_DIR to a file in the target directory
     sh "mkdir ${TARGET}"
-    sh "ls"
     // echo "${PACKAGE_DIR} > ${TARGET}/python_function.py"
+    // echo "${REQUIREMENTS_FILE} > ${TARGET}/requirements.txt"
+
     def scriptcontents = libraryResource 'lambda/lambda_function.py'
     writeFile file: "${TARGET}/python_function.py", text: scriptcontents
-    sh "ls"
-    sh "cd ${TARGET}"
-    sh "ls"
 
-    echo "${REQUIREMENTS_FILE} > ${TARGET}/requirements.txt"
+    def scriptcontents2 = libraryResource 'lambda/requirements.txt'
+    writeFile file: "${TARGET}/requirements.txt", text: scriptcontents2
+
 
     // navigate to target directory and install dependencies using pip
     sh "cd ${TARGET}"
