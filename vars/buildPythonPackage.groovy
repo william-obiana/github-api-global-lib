@@ -28,7 +28,7 @@ def call(String PYTHON_VERSION, String PACKAGE_DIR, String REQUIREMENTS_FILE, St
 
     // navigate to target directory and install dependencies using pip
     // sh "cd .${TARGET}"
-    sh "pip install -r ${TARGET}requirements.txt -t ./ --quiet"
+    sh "pip install -r ${TARGET}/requirements.txt -t ./ --quiet"
     echo "requirements.txt installed"
     // sh "pip install -r ./${REQUIREMENTS_FILE} -t ./ --quiet"
 
