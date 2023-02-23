@@ -18,7 +18,7 @@ pipeline {
     // add the environment variables in Jenkins UI and reference them in this Jenkinsfile
     environment {
         PYTHON_VERSION = "3.8"
-        PACKAGE_DIR = libraryResource('lambda/*')
+        PACKAGE_DIR = libraryResource('lambda')
         REQUIREMENTS_FILE = libraryResource('lambda/requirements.txt')
         S3_ARTIFACT_BUCKET_NAME = "${S3_ARTIFACT_BUCKET_NAME}"
         S3_ARTIFACT_OUTPUT_PATH = "${S3_ARTIFACT_OUTPUT_PATH}"
