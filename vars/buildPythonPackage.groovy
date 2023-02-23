@@ -20,15 +20,15 @@ def call(String PYTHON_VERSION, String PACKAGE_DIR = 'lambda/lambda_function.py'
 
     // write file contents of the PACKAGE_DIR to the target directory of agent
     def scriptcontents = libraryResource PACKAGE_DIR
-    writeFile file: "${TARGET}/python_function.py", text: scriptcontents
+    writeFile file: "${TARGET}/${PACKAGE_DIR}", text: scriptcontents
 
     // write file contents of the REQUIREMENTS_FILE to the target directory of agent
     def scriptcontents2 = libraryResource REQUIREMENTS_FILE
-    writeFile file: "${TARGET}/requirements.txt", text: scriptcontents2
+    writeFile file: "${TARGET}/${REQUIREMENTS_FILE}", text: scriptcontents2
 
     // install dependencies using pip
-    sh "pip install -r ${TARGET}/requirements.txt -t ./ --quiet"
-    echo "requirements.txt installed"
+    sh "pip install -r ${TARGET}/${REQUIREMENTS_FILE} -t ./ --quiet"
+    echo "Requirements installed"
 
     // zip file and create SHA256 hash of the file (this is for lambda to pick up changes)
     sh "zip -r package.zip ."
