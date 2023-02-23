@@ -17,7 +17,12 @@ def call(String PYTHON_VERSION, String PACKAGE_DIR, String REQUIREMENTS_FILE, St
 
     // create target directory and copy the contents of the PACKAGE_DIR to a file in the target directory
     sh "mkdir ${TARGET}"
-    echo "${PACKAGE_DIR} > ${TARGET}/python_function.py"
+    // echo "${PACKAGE_DIR} > ${TARGET}/python_function.py"
+    def scriptcontents = ${PACKAGE_DIR}
+    writeFile file: "${TARGET}/python_function.py", text: scriptcontents
+    sh "cd ${TARGET}"
+    sh "ls"
+
     echo "${REQUIREMENTS_FILE} > ${TARGET}/requirements.txt"
 
     // navigate to target directory and install dependencies using pip
