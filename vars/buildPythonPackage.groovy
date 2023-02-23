@@ -17,12 +17,14 @@ def call(String PYTHON_VERSION, String PACKAGE_DIR, String REQUIREMENTS_FILE, St
 
     // create target directory and copy the contents of the PACKAGE_DIR to a file in the target directory
     sh "mkdir ${TARGET}"
-    sh "cp -a ${PACKAGE_DIR}/* ${TARGET}"
-    // echo "${PACKAGE_DIR} > ${TARGET}/python_function.py"
+    echo "${PACKAGE_DIR} > ${TARGET}/python_function.py"
+    echo "${REQUIREMENTS_FILE} > ${TARGET}/requirements.txt"
 
     // navigate to target directory and install dependencies using pip
     sh "cd ${TARGET}"
-    sh "pip install -r ./${REQUIREMENTS_FILE} -t ./ --quiet"
+    sh "pip install -r requirements.txt -t ./ --quiet"
+    echo "requirements.txt installed"
+    // sh "pip install -r ./${REQUIREMENTS_FILE} -t ./ --quiet"
 
     // zip file and create SHA256 hash of the file (this is for lambda to pick up changes)
     sh "zip -r package.zip ."
