@@ -1,5 +1,5 @@
 // prerequisites: Python, pip, openssl and AWS credentials should already set up in the Jenkins environment.
-def call(String PYTHON_VERSION, String PACKAGE_DIR = 'lambda/lambda_function.py', String REQUIREMENTS_FILE = 'lambda/requirements.txt', String S3_ARTIFACT_BUCKET_NAME, String S3_ARTIFACT_OUTPUT_PATH, String TARGET = "/tmp/target") {
+def call(String PYTHON_VERSION, String PACKAGE_DIR, String REQUIREMENTS_FILE, String S3_ARTIFACT_BUCKET_NAME, String S3_ARTIFACT_OUTPUT_PATH, String TARGET = "/tmp/target") {
     sh "env | sort"
 
     // checks if all the required arguments are provided
@@ -15,20 +15,20 @@ def call(String PYTHON_VERSION, String PACKAGE_DIR = 'lambda/lambda_function.py'
         sh "rm -rf ${TARGET}"
     }
 
-    // create target directory and write file contents of the PACKAGE_DIR and REQUIREMENTS_FILE to the target directory of agent
+    // create target directory
     sh "mkdir ${TARGET}"
 
-    def scriptcontents = libraryResource '${PACKAGE_DIR}'
+    // write file contents of the PACKAGE_DIR to the target directory of agent
+    def scriptcontents = libraryResource 'lambda/lambda_function.py'
     writeFile file: "${TARGET}/python_function.py", text: scriptcontents
 
-    def scriptcontents2 = libraryResource '${REQUIREMENTS_FILE}'
+    // write file contents of the REQUIREMENTS_FILE to the target directory of agent
+    def scriptcontents2 = libraryResource 'lambda/requirements.txt'
     writeFile file: "${TARGET}/requirements.txt", text: scriptcontents2
 
-    // navigate to target directory and install dependencies using pip
-    // sh "cd .${TARGET}"
+    // install dependencies using pip
     sh "pip install -r ${TARGET}/requirements.txt -t ./ --quiet"
     echo "requirements.txt installed"
-    // sh "pip install -r ./${REQUIREMENTS_FILE} -t ./ --quiet"
 
     // zip file and create SHA256 hash of the file (this is for lambda to pick up changes)
     sh "zip -r package.zip ."
