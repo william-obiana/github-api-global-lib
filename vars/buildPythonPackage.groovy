@@ -15,15 +15,13 @@ def call(String PYTHON_VERSION, String PACKAGE_DIR, String REQUIREMENTS_FILE, St
         sh "rm -rf ${TARGET}"
     }
 
-    // create target directory and copy the contents of the PACKAGE_DIR to a file in the target directory
+    // create target directory and write file contents of the PACKAGE_DIR and REQUIREMENTS_FILE to the target directory of agent
     sh "mkdir ${TARGET}"
-    // echo "${PACKAGE_DIR} > ${TARGET}/python_function.py"
-    // echo "${REQUIREMENTS_FILE} > ${TARGET}/requirements.txt"
 
-    def scriptcontents = libraryResource 'lambda/lambda_function.py'
+    def scriptcontents = libraryResource '${PACKAGE_DIR}'
     writeFile file: "${TARGET}/python_function.py", text: scriptcontents
 
-    def scriptcontents2 = libraryResource 'lambda/requirements.txt'
+    def scriptcontents2 = libraryResource '${REQUIREMENTS_FILE}'
     writeFile file: "${TARGET}/requirements.txt", text: scriptcontents2
 
     // navigate to target directory and install dependencies using pip
