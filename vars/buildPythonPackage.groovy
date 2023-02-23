@@ -20,10 +20,10 @@ def call(String PYTHON_VERSION, String PACKAGE_DIR, String REQUIREMENTS_FILE, St
     // echo "${PACKAGE_DIR} > ${TARGET}/python_function.py"
     // echo "${REQUIREMENTS_FILE} > ${TARGET}/requirements.txt"
 
-    def scriptcontents = libraryResource ${PACKAGE_DIR}
+    def scriptcontents = libraryResource 'lambda/lambda_function.py'
     writeFile file: "${TARGET}/python_function.py", text: scriptcontents
 
-    def scriptcontents2 = libraryResource ${REQUIREMENTS_FILE}
+    def scriptcontents2 = libraryResource 'lambda/requirements.txt'
     writeFile file: "${TARGET}/requirements.txt", text: scriptcontents2
 
     // navigate to target directory and install dependencies using pip
