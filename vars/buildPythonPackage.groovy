@@ -1,5 +1,5 @@
 // prerequisites TBR: Python3, pip, zip, openssl, boto3 and AWS credentials should already set up in the Jenkins environment.
-def call(String PYTHON_VERSION, String PACKAGE_DIR, String REQUIREMENTS_FILE, String S3_ARTIFACT_BUCKET_NAME, String S3_ARTIFACT_OUTPUT_PATH, String TARGET = "/tmp/target") {
+def call(String PYTHON_VERSION, String PACKAGE_DIR, String REQUIREMENTS_FILE, String S3_ARTIFACT_BUCKET_NAME, String S3_ARTIFACT_OUTPUT_PATH, String TARGET = "/tmp/target", String OUTPUT = "/tmp/output") {
     sh "env | sort"
 
     // checks if all the required arguments are provided
@@ -34,13 +34,22 @@ def call(String PYTHON_VERSION, String PACKAGE_DIR, String REQUIREMENTS_FILE, St
 //     sh "zip -r package.zip ."
 //     sh 'openssl dgst -sha256 -binary "package.zip" | openssl enc -A -base64 > "package.base64sha256"'
 
+    // if a target directory already exists, remove it
+    if (fileExists(OUTPUT)) {
+        echo "Folder ${OUTPUT} found!"
+        sh "rm -rf ${OUTPUT}"
+    }
+
+    // create target directory
+    sh "mkdir ${OUTPUT}"
+
     // zip file and create SHA256 hash of the file (this is for lambda to pick up changes)
-    sh "zip -r output/package.zip ."
-    sh 'openssl dgst -sha256 -binary "output/package.zip" | openssl enc -A -base64 > "output/package.base64sha256"'
+    sh "zip -r ${OUTPUT_DIR}/package.zip ."
+    sh 'openssl dgst -sha256 -binary "${OUTPUT_DIR}/package.zip" | openssl enc -A -base64 > "${OUTPUT_DIR}/package.base64sha256"'
     echo 'Successful'
 
     // archive files as artifacts in Jenkins
-    archiveArtifacts allowEmptyArchive: true, artifacts: "output/*"
+    archiveArtifacts allowEmptyArchive: true, artifacts: "${OUTPUT_DIR}/*"
     echo 'archive ready for download'
 }
 
