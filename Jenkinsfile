@@ -46,7 +46,7 @@ pipeline {
 
     post {
         always {
-            archiveArtifacts allowEmptyArchive: true, artifacts: '/tmp/output/*', onlyIfSuccessful: true
+            archiveArtifacts "*"
         }
     }
 }
