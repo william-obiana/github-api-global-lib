@@ -15,6 +15,10 @@ def call(String PYTHON_VERSION, String TEST_DIR, String REQUIREMENTS_FILE, Strin
         sh "rm -rf ${TEST_DIR}"
     }
 
+    // write file contents of the PACKAGE_DIR to the test directory of agent
+    def test_package_contents = libraryResource PACKAGE_DIR
+    writeFile file: "${TARGET}/tests/lambda_function.py", text: test_package_contents
+
     // write file contents of the REQUIREMENTS_FILE to the test directory of agent
     def test_requirements_contents = libraryResource REQUIREMENTS_FILE
     writeFile file: "${TARGET}/${TEST_DIR}", text: test_requirements_contents
@@ -27,7 +31,7 @@ def call(String PYTHON_VERSION, String TEST_DIR, String REQUIREMENTS_FILE, Strin
     // navigate to TEST_DIR directory and install dependencies using pip
     sh "pip install pytest"
     echo "Pytest installed"
-    sh "pytest ${TARGET}/${PACKAGE_DIR} --junitxml=reports/report.xml ${PYTEST_ARGS}" // run pytest and generate reports
+    sh "pytest ${TARGET}/tests/lambda_function.py --junitxml=reports/report.xml ${PYTEST_ARGS}" // run pytest and generate reports
 
     // define a reports map for the report.xml
     def reports = junit testResults: 'reports/report.xml'
