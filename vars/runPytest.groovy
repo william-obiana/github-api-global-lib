@@ -15,13 +15,17 @@ def call(String PYTHON_VERSION, String TEST_DIR, String REQUIREMENTS_FILE, Strin
         sh "rm -rf ${TEST_DIR}"
     }
 
-    sh "cp ${TARGET}/${REQUIREMENTS_FILE} ${TARGET}/${TEST_DIR}"
+    // write file contents of the REQUIREMENTS_FILE to the test directory of agent
+    writeFile file: "${TARGET}/${TEST_DIR}", text: requirementscontents
     sh "echo completed"
 
+    // install dependencies using pip
+    sh "pip install -r ${TARGET}/${TEST_DIR} -t ./ --quiet"
+    echo "Requirements installed"
+
     // navigate to TEST_DIR directory and install dependencies using pip
-    sh "cd ${TEST_DIR}"
-    sh "pip install -r ${REQUIREMENTS_FILE}"
     sh "pip install pytest"
+    echo "pytest is installed"
     sh "pytest --junitxml=reports/report.xml ${PYTEST_ARGS}" // run pytest and generate reports
 
     // define a reports map for the report.xml
