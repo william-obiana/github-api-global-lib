@@ -45,7 +45,7 @@ pipeline {
 
     post {
         always {
-            archiveArtifacts "*.zip, *.base64sha256"
+            archiveArtifacts "*.xml, *.zip, *.base64sha256"
         }
     }
 }
