@@ -1,5 +1,5 @@
 // prerequisites TBR: Python3, pip, zip, openssl, boto3 and AWS credentials should already set up in the Jenkins environment.
-def call(String PYTHON_VERSION, String PACKAGE_DIR, String REQUIREMENTS_FILE, String S3_ARTIFACT_BUCKET_NAME, String S3_ARTIFACT_OUTPUT_PATH, String TARGET = "/tmp/target", String OUTPUT = "/tmp/output") {
+def call(String PYTHON_VERSION, String PACKAGE_DIR, String REQUIREMENTS_FILE, String S3_ARTIFACT_BUCKET_NAME, String S3_ARTIFACT_OUTPUT_PATH, String TARGET = "/tmp/target") {
     sh "env | sort"
 
     // checks if all the required arguments are provided
@@ -49,7 +49,7 @@ def call(String PYTHON_VERSION, String PACKAGE_DIR, String REQUIREMENTS_FILE, St
     echo 'Successful'
 
     // archive files as artifacts in Jenkins
-    archiveArtifacts allowEmptyArchive: true, artifacts: "${OUTPUT}/*"
-    echo 'archive ready for download'
+//     archiveArtifacts allowEmptyArchive: true, artifacts: "${OUTPUT}/*"
+//     echo 'archive ready for download'
 }
 
