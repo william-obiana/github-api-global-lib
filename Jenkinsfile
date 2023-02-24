@@ -10,7 +10,7 @@ pipeline {
         REQUIREMENTS_FILE = 'lambda/requirements.txt'
         S3_ARTIFACT_BUCKET_NAME = "${S3_ARTIFACT_BUCKET_NAME}"
         S3_ARTIFACT_OUTPUT_PATH = "${S3_ARTIFACT_OUTPUT_PATH}"
-        TEST_DIR = "tests"
+        TEST_DIR = "tests/requirements.txt"
         PYTEST_ARGS = "${PYTEST_ARGS}"
     }
 

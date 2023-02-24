@@ -9,6 +9,12 @@ def call(String PYTHON_VERSION, String TEST_DIR, String REQUIREMENTS_FILE, Strin
         return 1
     }
 
+    // if a test directory already exists, remove it
+    if (fileExists(TEST_DIR)) {
+        echo "Folder ${TEST_DIR} found!"
+        sh "rm -rf ${TEST_DIR}"
+    }
+
     sh "cp ${TARGET}/${REQUIREMENTS_FILE} ${TARGET}/${TEST_DIR}"
     sh "echo completed"
 
