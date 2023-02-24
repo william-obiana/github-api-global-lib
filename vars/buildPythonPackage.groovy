@@ -34,22 +34,22 @@ def call(String PYTHON_VERSION, String PACKAGE_DIR, String REQUIREMENTS_FILE, St
 //     sh "zip -r package.zip ."
 //     sh 'openssl dgst -sha256 -binary "package.zip" | openssl enc -A -base64 > "package.base64sha256"'
 
-    // if a target directory already exists, remove it
+    // if an output directory already exists, remove it
     if (fileExists(OUTPUT)) {
         echo "Folder ${OUTPUT} found!"
         sh "rm -rf ${OUTPUT}"
     }
 
-    // create target directory
+    // create output directory
     sh "mkdir ${OUTPUT}"
 
     // zip file and create SHA256 hash of the file (this is for lambda to pick up changes)
-    sh "zip -r ${OUTPUT_DIR}/package.zip ."
-    sh 'openssl dgst -sha256 -binary "${OUTPUT_DIR}/package.zip" | openssl enc -A -base64 > "${OUTPUT_DIR}/package.base64sha256"'
+    sh "zip -r ${OUTPUT}/package.zip ."
+    sh 'openssl dgst -sha256 -binary "${OUTPUT}/package.zip" | openssl enc -A -base64 > "${OUTPUT}/package.base64sha256"'
     echo 'Successful'
 
     // archive files as artifacts in Jenkins
-    archiveArtifacts allowEmptyArchive: true, artifacts: "${OUTPUT_DIR}/*"
+    archiveArtifacts allowEmptyArchive: true, artifacts: "${OUTPUT}/*"
     echo 'archive ready for download'
 }
 
