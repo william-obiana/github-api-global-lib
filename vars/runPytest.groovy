@@ -16,7 +16,8 @@ def call(String PYTHON_VERSION, String TEST_DIR, String REQUIREMENTS_FILE, Strin
     }
 
     // write file contents of the REQUIREMENTS_FILE to the test directory of agent
-    writeFile file: "${TARGET}/${TEST_DIR}", text: requirementscontents
+    def testrequirementscontents = libraryResource REQUIREMENTS_FILE
+    writeFile file: "${TARGET}/${TEST_DIR}", text: testrequirementscontents
     sh "echo completed"
 
     // install dependencies using pip
