@@ -45,7 +45,7 @@ def call(String PYTHON_VERSION, String PACKAGE_DIR, String REQUIREMENTS_FILE, St
 
     // zip file and create SHA256 hash of the file (this is for lambda to pick up changes)
     sh "zip -r ${OUTPUT}/package.zip ."
-    sh 'openssl dgst -sha256 -binary "${OUTPUT}/package.zip" | openssl enc -A -base64 > "${OUTPUT}/package.base64sha256"'
+    sh 'openssl dgst -sha256 -binary "/tmp/output/package.zip" | openssl enc -A -base64 > "/tmp/output/package.base64sha256"'
     echo 'Successful'
 
     // archive files as artifacts in Jenkins
