@@ -27,7 +27,7 @@ def call(String PYTHON_VERSION, String TEST_DIR, String REQUIREMENTS_FILE, Strin
     // navigate to TEST_DIR directory and install dependencies using pip
     sh "pip install pytest"
     echo "Pytest installed"
-    sh "pytest ${TARGET}/${TEST_DIR} --junitxml=reports/report.xml ${PYTEST_ARGS}" // run pytest and generate reports
+    sh "pytest ${TARGET}/${PACKAGE_DIR} --junitxml=reports/report.xml ${PYTEST_ARGS}" // run pytest and generate reports
 
     // define a reports map for the report.xml
     def reports = junit testResults: 'reports/report.xml'
