@@ -28,9 +28,9 @@ def call(String PYTHON_VERSION, String TEST_DIR, String REQUIREMENTS_FILE, Strin
     echo "Requirements installed"
 
     // navigate to TEST_DIR directory and run pytest
-    sh "pytest ${TARGET}/${TEST_DIR}/${PACKAGE_FILE} --junitxml=reports/${env.BUILD_ID}report.xml ${PYTEST_ARGS}" // run pytest and generate reports
+    sh "pytest ${TARGET}/${TEST_DIR}/${PACKAGE_FILE} --junitxml=reports/report.xml ${PYTEST_ARGS}" // run pytest and generate reports
 
     // define a reports map for the report.xml
-    def reports = junit testResults: 'reports/${env.BUILD_ID}report.xml'
-    step([$class: 'JUnitResultArchiver', testResults: 'reports/${env.BUILD_ID}report.xml']) // use JUnitResultArchiver Plugin to archive
+    def reports = junit testResults: 'reports/report.xml'
+    step([$class: 'JUnitResultArchiver', testResults: 'reports/report.xml']) // use JUnitResultArchiver Plugin to archive
 }
