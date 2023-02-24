@@ -22,13 +22,12 @@ def call(String PYTHON_VERSION, String TEST_DIR, String REQUIREMENTS_FILE, Strin
     // write file contents of the REQUIREMENTS_FILE to the test directory of agent
     def test_requirements_contents = libraryResource "${PACKAGE_DIR}/${REQUIREMENTS_FILE}"
     writeFile file: "${TARGET}/${TEST_DIR}/${REQUIREMENTS_FILE}", text: test_requirements_contents
-    sh "echo completed"
 
     // install dependencies using pip (boto3, pytest)
     sh "pip install -r ${TARGET}/${TEST_DIR}/${REQUIREMENTS_FILE} -t ./ --quiet"
     echo "Requirements installed"
 
-    // navigate to TEST_DIR directory and install dependencies using pip
+    // navigate to TEST_DIR directory and run pytest
     sh "pytest ${TARGET}/${TEST_DIR}/${PACKAGE_FILE} --junitxml=reports/report.xml ${PYTEST_ARGS}" // run pytest and generate reports
 
     // define a reports map for the report.xml
