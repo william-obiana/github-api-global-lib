@@ -1,4 +1,4 @@
-// prerequisites TBR: Python, pip, zip, openssl and AWS credentials should already set up in the Jenkins environment.
+// prerequisites TBR: Python3, pip, zip, openssl, boto3 and AWS credentials should already set up in the Jenkins environment.
 def call(String PYTHON_VERSION, String TEST_DIR, String REQUIREMENTS_FILE, String PYTEST_ARGS, String TARGET = "/tmp/target") {
     sh "env | sort"
 
@@ -24,13 +24,11 @@ def call(String PYTHON_VERSION, String TEST_DIR, String REQUIREMENTS_FILE, Strin
     writeFile file: "${TARGET}/${TEST_DIR}", text: test_requirements_contents
     sh "echo completed"
 
-    // install dependencies using pip
+    // install dependencies using pip (boto3, pytest)
     sh "pip install -r ${TARGET}/${TEST_DIR} -t ./ --quiet"
     echo "Requirements installed"
 
     // navigate to TEST_DIR directory and install dependencies using pip
-    sh "pip install pytest"
-    echo "Pytest installed"
     sh "pytest ${TARGET}/tests/lambda_function.py --junitxml=reports/report.xml ${PYTEST_ARGS}" // run pytest and generate reports
 
     // define a reports map for the report.xml

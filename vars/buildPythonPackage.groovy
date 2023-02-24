@@ -1,4 +1,4 @@
-// prerequisites: Python, pip, zip, openssl and AWS credentials should already set up in the Jenkins environment.
+// prerequisites TBR: Python3, pip, zip, openssl, boto3 and AWS credentials should already set up in the Jenkins environment.
 def call(String PYTHON_VERSION, String PACKAGE_DIR, String REQUIREMENTS_FILE, String S3_ARTIFACT_BUCKET_NAME, String S3_ARTIFACT_OUTPUT_PATH, String TARGET = "/tmp/target") {
     sh "env | sort"
 
@@ -19,12 +19,12 @@ def call(String PYTHON_VERSION, String PACKAGE_DIR, String REQUIREMENTS_FILE, St
     sh "mkdir ${TARGET}"
 
     // write file contents of the PACKAGE_DIR to the target directory of agent
-    def packagecontents = libraryResource PACKAGE_DIR
-    writeFile file: "${TARGET}/${PACKAGE_DIR}", text: packagecontents
+    def packagecontents = libraryResource PACKAGE_DIR/PACKAGE_FILE
+    writeFile file: "${TARGET}/${PACKAGE_DIR}/${PACKAGE_FILE}", text: packagecontents
 
     // write file contents of the REQUIREMENTS_FILE to the target directory of agent
-    def requirementscontents = libraryResource REQUIREMENTS_FILE
-    writeFile file: "${TARGET}/${REQUIREMENTS_FILE}", text: requirementscontents
+    def requirementscontents = libraryResource PACKAGE_DIR/REQUIREMENTS_FILE
+    writeFile file: "${TARGET}/${PACKAGE_DIR}/${REQUIREMENTS_FILE}", text: requirementscontents
 
     // install dependencies using pip
     sh "pip install -r ${TARGET}/${REQUIREMENTS_FILE} -t ./ --quiet"
