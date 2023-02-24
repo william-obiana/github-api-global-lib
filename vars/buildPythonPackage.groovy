@@ -21,7 +21,6 @@ def call(String PYTHON_VERSION, String PACKAGE_DIR, String REQUIREMENTS_FILE, St
     // write file contents of the PACKAGE_DIR to the target directory of agent
     def packagecontents = libraryResource "${PACKAGE_DIR}/${PACKAGE_FILE}"
     writeFile file: "${TARGET}/${PACKAGE_DIR}/${PACKAGE_FILE}", text: packagecontents
-    echo "Passed"
 
     // write file contents of the REQUIREMENTS_FILE to the target directory of agent
     def requirementscontents = libraryResource "${PACKAGE_DIR}/${REQUIREMENTS_FILE}"

@@ -11,7 +11,7 @@ pipeline {
         REQUIREMENTS_FILE = 'requirements.txt'
         S3_ARTIFACT_BUCKET_NAME = "${S3_ARTIFACT_BUCKET_NAME}"
         S3_ARTIFACT_OUTPUT_PATH = "${S3_ARTIFACT_OUTPUT_PATH}"
-        TEST_DIR = "tests/requirements.txt"
+        TEST_DIR = "tests"
         PYTEST_ARGS = "--verbose"
     }
 
