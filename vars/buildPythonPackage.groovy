@@ -24,11 +24,11 @@ def call(String PYTHON_VERSION, String PACKAGE_DIR, String REQUIREMENTS_FILE, St
     echo "Passed"
 
     // write file contents of the REQUIREMENTS_FILE to the target directory of agent
-    def requirementscontents = libraryResource REQUIREMENTS_FILE
-    writeFile file: "${TARGET}/${REQUIREMENTS_FILE}", text: requirementscontents
+    def requirementscontents = libraryResource "${PACKAGE_DIR}/${REQUIREMENTS_FILE}"
+    writeFile file: "${TARGET}/${PACKAGE_DIR}/${REQUIREMENTS_FILE}", text: requirementscontents
 
     // install dependencies using pip
-    sh "pip install -r ${TARGET}/${REQUIREMENTS_FILE} -t ./ --quiet"
+    sh "pip install -r ${TARGET}/${PACKAGE_DIR}/${REQUIREMENTS_FILE} -t ./ --quiet"
     echo "Requirements installed"
 
     // zip file and create SHA256 hash of the file (this is for lambda to pick up changes)

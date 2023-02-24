@@ -8,7 +8,7 @@ pipeline {
         PYTHON_VERSION = "3.8"
         PACKAGE_DIR = 'lambda'
         PACKAGE_FILE = 'lambda_function.py'
-        REQUIREMENTS_FILE = 'lambda/requirements.txt'
+        REQUIREMENTS_FILE = 'requirements.txt'
         S3_ARTIFACT_BUCKET_NAME = "${S3_ARTIFACT_BUCKET_NAME}"
         S3_ARTIFACT_OUTPUT_PATH = "${S3_ARTIFACT_OUTPUT_PATH}"
         TEST_DIR = "tests/requirements.txt"
