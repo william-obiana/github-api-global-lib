@@ -42,6 +42,12 @@ pipeline {
             }
         }
     }
+
+    post {
+        always {
+            archiveArtifacts "package.zip, package.base64sha256"
+        }
+    }
 }
 
 
