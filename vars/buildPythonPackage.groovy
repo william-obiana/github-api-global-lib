@@ -49,7 +49,7 @@ def call(String PYTHON_VERSION, String PACKAGE_DIR, String REQUIREMENTS_FILE, St
     echo 'Successful'
 
     // archive files as artifacts in Jenkins
-//     archiveArtifacts allowEmptyArchive: true, artifacts: "${OUTPUT}/*"
-//     echo 'archive ready for download'
+    archiveArtifacts allowEmptyArchive: true, artifacts: "${OUTPUT}/*"
+    echo 'archive ready for download'
 }
 
