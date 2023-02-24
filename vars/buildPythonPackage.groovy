@@ -19,12 +19,12 @@ def call(String PYTHON_VERSION, String PACKAGE_DIR, String REQUIREMENTS_FILE, St
     sh "mkdir ${TARGET}"
 
     // write file contents of the PACKAGE_DIR to the target directory of agent
-    def packagecontents = libraryResource PACKAGE_DIR/PACKAGE_FILE
-    writeFile file: "${TARGET}/${PACKAGE_DIR}/${PACKAGE_FILE}", text: packagecontents
+    def packagecontents = libraryResource PACKAGE_DIR
+    writeFile file: "${TARGET}/${PACKAGE_DIR}", text: packagecontents
 
     // write file contents of the REQUIREMENTS_FILE to the target directory of agent
-    def requirementscontents = libraryResource PACKAGE_DIR/REQUIREMENTS_FILE
-    writeFile file: "${TARGET}/${PACKAGE_DIR}/${REQUIREMENTS_FILE}", text: requirementscontents
+    def requirementscontents = libraryResource REQUIREMENTS_FILE
+    writeFile file: "${TARGET}/${REQUIREMENTS_FILE}", text: requirementscontents
 
     // install dependencies using pip
     sh "pip install -r ${TARGET}/${REQUIREMENTS_FILE} -t ./ --quiet"
