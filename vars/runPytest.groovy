@@ -1,5 +1,5 @@
-// prerequisites TBR: Python, pip, openssl and AWS credentials should already set up in the Jenkins environment.
-def runPytest(String PYTHON_VERSION, String TEST_DIR, String REQUIREMENTS_FILE, String PYTEST_ARGS) {
+// prerequisites TBR: Python, pip, zip, openssl and AWS credentials should already set up in the Jenkins environment.
+def runPytest(String PYTHON_VERSION, String TEST_DIR, String REQUIREMENTS_FILE, String PYTEST_ARGS, String TARGET = "/tmp/target") {
     sh "env | sort"
 
     // checks if all the required arguments are provided
@@ -8,6 +8,9 @@ def runPytest(String PYTHON_VERSION, String TEST_DIR, String REQUIREMENTS_FILE, 
         echo "The following variables are optional: PYTEST_ARGS"
         return 1
     }
+
+    sh "cp ${TARGET}/${REQUIREMENTS_FILE} ${TARGET}/${TEST_DIR}"
+    sh "echo completed"
 
     // navigate to TEST_DIR directory and install dependencies using pip
     sh "cd ${TEST_DIR}"

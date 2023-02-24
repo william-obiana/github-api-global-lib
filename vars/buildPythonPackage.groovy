@@ -34,7 +34,7 @@ def call(String PYTHON_VERSION, String PACKAGE_DIR, String REQUIREMENTS_FILE, St
     sh "zip -r package.zip ."
     sh 'openssl dgst -sha256 -binary "package.zip" | openssl enc -A -base64 > "package.base64sha256"'
 
-//     // upload the zip file & hash file to S3
+    // upload the zip file & hash file to S3
 //     sh "aws s3 cp --no-progress package.zip s3://${S3_ARTIFACT_BUCKET_NAME}/${S3_ARTIFACT_OUTPUT_PATH}/package.zip"
 //     sh "aws s3 cp --no-progress --content-type text/plain package.base64sha256 s3://${S3_ARTIFACT_BUCKET_NAME}/${S3_ARTIFACT_OUTPUT_PATH}/package.base64sha256"
 }

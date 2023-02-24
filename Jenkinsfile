@@ -1,17 +1,5 @@
 @Library('shared-library') _
 
-// pipeline {
-//     agent any
-//
-//     stages {
-//         stage('Build') {
-//             steps {
-//                 helloWorldExternal(name: 'William', dayOfWeek: 'Thursday')
-//             }
-//         }
-//     }
-// }
-
 pipeline {
     agent any
 
@@ -22,7 +10,7 @@ pipeline {
         REQUIREMENTS_FILE = 'lambda/requirements.txt'
         S3_ARTIFACT_BUCKET_NAME = "${S3_ARTIFACT_BUCKET_NAME}"
         S3_ARTIFACT_OUTPUT_PATH = "${S3_ARTIFACT_OUTPUT_PATH}"
-        TEST_DIR = "${TEST_DIR}"
+        TEST_DIR = "tests"
         PYTEST_ARGS = "${PYTEST_ARGS}"
     }
 
