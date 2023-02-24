@@ -1,5 +1,5 @@
 // prerequisites TBR: Python, pip, zip, openssl and AWS credentials should already set up in the Jenkins environment.
-def runPytest(String PYTHON_VERSION, String TEST_DIR, String REQUIREMENTS_FILE, String PYTEST_ARGS, String TARGET = "/tmp/target") {
+def call(String PYTHON_VERSION, String TEST_DIR, String REQUIREMENTS_FILE, String PYTEST_ARGS, String TARGET = "/tmp/target") {
     sh "env | sort"
 
     // checks if all the required arguments are provided
