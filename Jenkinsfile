@@ -13,7 +13,6 @@ pipeline {
         S3_ARTIFACT_OUTPUT_PATH = "${S3_ARTIFACT_OUTPUT_PATH}"
         TEST_DIR = "tests"
         PYTEST_ARGS = "--verbose"
-        OUTPUT = "/tmp/output"
     }
 
     stages {

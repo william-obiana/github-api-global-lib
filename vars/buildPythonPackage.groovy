@@ -30,26 +30,8 @@ def call(String PYTHON_VERSION, String PACKAGE_DIR, String REQUIREMENTS_FILE, St
     sh "pip install -r ${TARGET}/${PACKAGE_DIR}/${REQUIREMENTS_FILE} -t ./ --quiet"
     echo "Requirements installed"
 
-//     // zip file and create SHA256 hash of the file (this is for lambda to pick up changes)
-//     sh "zip -r package.zip ."
-//     sh 'openssl dgst -sha256 -binary "package.zip" | openssl enc -A -base64 > "package.base64sha256"'
-
-    // if an output directory already exists, remove it
-    if (fileExists(OUTPUT)) {
-        echo "Folder ${OUTPUT} found!"
-        sh "rm -rf ${OUTPUT}"
-    }
-
-    // create output directory
-    sh "mkdir ${OUTPUT}"
-
     // zip file and create SHA256 hash of the file (this is for lambda to pick up changes)
-    sh "zip -r ${OUTPUT}/package.zip ."
-    sh 'openssl dgst -sha256 -binary "/tmp/output/package.zip" | openssl enc -A -base64 > "/tmp/output/package.base64sha256"'
-    echo 'Successful'
-
-    // archive files as artifacts in Jenkins
-    archiveArtifacts allowEmptyArchive: true, artifacts: "${OUTPUT}/*"
-    echo 'archive ready for download'
+    sh "zip -r package.zip ."
+    sh 'openssl dgst -sha256 -binary "package.zip" | openssl enc -A -base64 > "package.base64sha256"'
 }
 
