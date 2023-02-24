@@ -41,7 +41,9 @@ def call(String PYTHON_VERSION, String PACKAGE_DIR, String REQUIREMENTS_FILE, St
     }
 
     // create output directory
-    // sh "mkdir ${OUTPUT}"
+    sh "mkdir ${OUTPUT}"
+    sh "cd ${OUTPUT}"
+    sh "ls"
 
     // zip file and create SHA256 hash of the file (this is for lambda to pick up changes)
     sh "zip -r ${OUTPUT}/package.zip ."
