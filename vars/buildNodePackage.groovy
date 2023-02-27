@@ -1,4 +1,4 @@
-def call(String NODE_VERSION, String PACKAGE_DIR, String PACKAGE_FILE, String TARGET_DIR, String S3_ARTIFACT_BUCKET_NAME, String S3_ARTIFACT_OUTPUT_PATH) {
+def call(String NODE_VERSION, String PACKAGE_DIR, String PACKAGE_FILE, String TARGET_DIR = "/tmp/target", String S3_ARTIFACT_BUCKET_NAME, String S3_ARTIFACT_OUTPUT_PATH) {
     sh "env | sort"
 
     // checks if all the required arguments are provided
@@ -22,18 +22,13 @@ def call(String NODE_VERSION, String PACKAGE_DIR, String PACKAGE_FILE, String TA
     writeFile file: "${TARGET_DIR}/${PACKAGE_DIR}/${PACKAGE_FILE}", text: packagecontents
 
     // navigate to PACKAGE_DIR directory and install dependencies using npm
-    sh "cd ${TARGET_DIR}/${PACKAGE_DIR} && npm install"
+    sh "npm install --prefix ${TARGET_DIR}/${PACKAGE_DIR}"
     echo "Dependencies installed"
 
     // create tar file of package directory and move to target directory
-    sh "cd ${TARGET_DIR} && tar -czf package.tar.gz ${PACKAGE_DIR}"
+    sh "tar -czf ${TARGET_DIR}/package.tar.gz ${PACKAGE_DIR}"
     echo "Package created"
 
     // calculate SHA256 hash of the tar file (this is for S3 to pick up changes)
-    sh 'cd ${TARGET_DIR} && openssl dgst -sha256 -binary "package.tar.gz" | openssl enc -A -base64 > "package.base64sha256"'
-
-    // upload package to S3
-    sh "aws s3 cp ${TARGET_DIR}/package.tar.gz s3://${S3_ARTIFACT_BUCKET_NAME}/${S3_ARTIFACT_OUTPUT_PATH}/ --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers"
-    sh "aws s3 cp ${TARGET_DIR}/package.base64sha256 s3://${S3_ARTIFACT_BUCKET_NAME}/${S3_ARTIFACT_OUTPUT_PATH}/ --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers"
-    echo "Package uploaded to S3"
+    sh 'openssl dgst -sha256 -binary "${TARGET_DIR}/package.tar.gz" | openssl enc -A -base64 > "${TARGET_DIR}/package.base64sha256"'
 }
