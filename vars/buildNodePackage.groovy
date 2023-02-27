@@ -31,5 +31,5 @@ def call(String NODE_VERSION, String PACKAGE_DIR, String PACKAGE_FILE, String TA
     echo "Package created"
 
     // calculate SHA256 hash of the tar file (this is for S3 to pick up changes)
-    sh 'openssl dgst -sha256 -binary "${TARGET_DIR}/package.tar.gz" | openssl enc -A -base64 > "${TARGET_DIR}/package.base64sha256"'
+    sh 'openssl dgst -sha256 -binary "/tmp/target/package.tar.gz" | openssl enc -A -base64 > "/tmp/target/package.base64sha256"'
 }
