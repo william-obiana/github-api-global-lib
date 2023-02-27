@@ -20,7 +20,7 @@ pipeline {
             steps {
                 script {
                     buildNodePackage(
-                        PYTHON_VERSION,
+                        NODE_VERSION,
                         PACKAGE_DIR,
                         REQUIREMENTS_FILE,
                         S3_ARTIFACT_BUCKET_NAME,
