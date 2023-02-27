@@ -27,7 +27,7 @@ def call(String NODE_VERSION, String PACKAGE_DIR, String PACKAGE_FILE, String TA
     echo "Dependencies installed"
 
     // create tar file of package directory and move to target directory
-    sh "tar -czf ${TARGET_DIR}/package.tar.gz"
+    sh "tar -czf ${TARGET_DIR}/${PACKAGE_DIR}/package.tar.gz"
     echo "Package created"
 
     // calculate SHA256 hash of the tar file (this is for S3 to pick up changes)
