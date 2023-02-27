@@ -1,3 +1,4 @@
+// prerequisites TBR: NPM, pip, zip, openssl, boto3 and AWS credentials should already set up in the Jenkins environment.
 def call(String NODE_VERSION, String PACKAGE_DIR, String PACKAGE_FILE, String TARGET_DIR = "/tmp/target", String S3_ARTIFACT_BUCKET_NAME, String S3_ARTIFACT_OUTPUT_PATH) {
     sh "env | sort"
 
@@ -26,7 +27,7 @@ def call(String NODE_VERSION, String PACKAGE_DIR, String PACKAGE_FILE, String TA
     echo "Dependencies installed"
 
     // create tar file of package directory and move to target directory
-    sh "tar -czf ${TARGET_DIR}/package.tar.gz ${PACKAGE_DIR}"
+    sh "tar -czf ${TARGET_DIR}/package.tar.gz"
     echo "Package created"
 
     // calculate SHA256 hash of the tar file (this is for S3 to pick up changes)
