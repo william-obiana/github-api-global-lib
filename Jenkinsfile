@@ -29,6 +29,7 @@ pipeline {
                 }
             }
         }
+    }
 //         stage('Run Jest') {
 //             steps {
 //                 script {
