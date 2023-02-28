@@ -38,28 +38,6 @@ pipeline {
     }
 }
 
-//         stage('Run Pytest') {
-//             steps {
-//                 script {
-//                     runPytest(
-//                         PYTHON_VERSION,
-//                         TEST_DIR,
-//                         REQUIREMENTS_FILE,
-//                         PYTEST_ARGS
-//                     )
-//                 }
-//             }
-//         }
-//     }
-//
-    post {
-        always {
-            archiveArtifacts "*.zip, *.base64sha256"
-        }
-    }
-
-
-
 
 
 
