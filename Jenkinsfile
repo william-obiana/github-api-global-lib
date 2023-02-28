@@ -29,8 +29,19 @@ pipeline {
                 }
             }
         }
+        stage('Run Jest') {
+            steps {
+                script {
+                    runPytest(
+                        PYTHON_VERSION,
+                        TEST_DIR,
+                        REQUIREMENTS_FILE,
+                        PYTEST_ARGS
+                    )
+                }
+            }
+        }
     }
-
     post {
         always {
             archiveArtifacts "*.gz, *.zip, *.base64sha256"

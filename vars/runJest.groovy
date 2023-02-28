@@ -1,9 +1,9 @@
-def call(String PYTHON_VERSION, String TEST_DIR, String REQUIREMENTS_FILE, String PYTEST_ARGS, String TARGET = "/tmp/target") {
+def call(String NODE_VERSION, String TEST_DIR, String REQUIREMENTS_FILE, String PYTEST_ARGS, String TARGET = "/tmp/target") {
     sh "env | sort"
 
     // checks if all the required arguments are provided
-    if (PYTHON_VERSION == "" || TEST_DIR == "" || REQUIREMENTS_FILE == "") {
-        echo "The following variables must be present when using this Project: PYTHON_VERSION, TEST_DIR, REQUIREMENTS_FILE"
+    if (NODE_VERSION == "" || TEST_DIR == "" || REQUIREMENTS_FILE == "") {
+        echo "The following variables must be present when using this Project: NODE_VERSION, TEST_DIR, REQUIREMENTS_FILE"
         echo "The following variables are optional: PYTEST_ARGS"
         return 1
     }
