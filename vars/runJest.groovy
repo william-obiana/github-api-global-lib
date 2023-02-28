@@ -1,4 +1,4 @@
-def call(String NODE_VERSION, String TEST_DIR, String REQUIREMENTS_FILE, String PYTEST_ARGS, String TARGET = "/tmp/target") {
+def call(String NODE_VERSION, String TEST_DIR, String REQUIREMENTS_FILE, String TARGET = "/tmp/target") {
     sh "env | sort"
 
     // checks if all the required arguments are provided
