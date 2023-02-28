@@ -30,7 +30,39 @@ pipeline {
             }
         }
     }
+
+    post {
+        always {
+            archiveArtifacts "*.tar.gz, *.zip, *.base64sha256"
+        }
+    }
 }
+
+//         stage('Run Pytest') {
+//             steps {
+//                 script {
+//                     runPytest(
+//                         PYTHON_VERSION,
+//                         TEST_DIR,
+//                         REQUIREMENTS_FILE,
+//                         PYTEST_ARGS
+//                     )
+//                 }
+//             }
+//         }
+//     }
+//
+    post {
+        always {
+            archiveArtifacts "*.zip, *.base64sha256"
+        }
+    }
+
+
+
+
+
+
 
 
 // @Library('shared-library') _
