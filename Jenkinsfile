@@ -30,7 +30,8 @@ pipeline {
                 script {
                     runJest(
                         NODE_VERSION,
-                        TEST_DIR
+                        TEST_DIR,
+                        JEST_ARGS
                     )
                 }
             }
