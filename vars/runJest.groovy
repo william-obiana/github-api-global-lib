@@ -22,6 +22,7 @@ def call(String NODE_VERSION, String TEST_DIR, String JEST_ARGS, String TARGET =
     sh "npm init -y --prefix ${TARGET}/${PACKAGE_DIR}/${TEST_DIR}"
     sh "npm install jest --save-dev --prefix ${TARGET}/${PACKAGE_DIR}/${TEST_DIR}"
     sh "npm pkg set 'scripts.test'='jest' --prefix ${TARGET}/${PACKAGE_DIR}/${TEST_DIR}"
+    echo "Jest installed"
 
     // run the test
     sh "npm test --prefix ${TARGET}/${PACKAGE_DIR}/${TEST_DIR} --junitxml=reports/report_${env.BUILD_ID}_${BUILD_TIMESTAMP}.xml ${JEST_ARGS}"
