@@ -13,8 +13,8 @@ def call(String TEST_DIR, String JEST_ARGS, String TARGET = "/tmp/target") {
   }
 
   // write file contents of the TEST_DIR to the test directory of agent
-  def test_contents = libraryResource "${TEST_DIR}"
-  writeFile file: "${TARGET}/${TEST_DIR}", text: test_contents
+  def test_contents = libraryResource "${PACKAGE_DIR}/${PACKAGE_FILE}"
+  writeFile file: "${TARGET}/${TEST_DIR}/${PACKAGE_FILE}", text: test_contents
 
   // navigate to TEST_DIR directory and run Jest
   sh "npm init -y --prefix ${TARGET}/${TEST_DIR}"

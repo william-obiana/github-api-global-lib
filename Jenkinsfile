@@ -9,8 +9,6 @@ pipeline {
         PACKAGE_DIR = 'lambda'
         PACKAGE_FILE = 'node.test.js'
         REQUIREMENTS_FILE = 'requirements.txt'
-        S3_ARTIFACT_BUCKET_NAME = "${S3_ARTIFACT_BUCKET_NAME}"
-        S3_ARTIFACT_OUTPUT_PATH = "${S3_ARTIFACT_OUTPUT_PATH}"
         TEST_DIR = "tests"
         PYTEST_ARGS = "--verbose"
     }
