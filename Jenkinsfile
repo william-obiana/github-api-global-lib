@@ -10,7 +10,7 @@ pipeline {
         PACKAGE_FILE = 'node.test.js'
         REQUIREMENTS_FILE = 'requirements.txt'
         TEST_DIR = "tests"
-        PYTEST_ARGS = "--verbose"
+        JEST_ARGS = "--verbose"
     }
 
     stages {
@@ -20,9 +20,7 @@ pipeline {
                     buildNodePackage(
                         NODE_VERSION,
                         PACKAGE_DIR,
-                        REQUIREMENTS_FILE,
-                        S3_ARTIFACT_BUCKET_NAME,
-                        S3_ARTIFACT_OUTPUT_PATH
+                        PACKAGE_FILE
                     )
                 }
             }
@@ -32,8 +30,7 @@ pipeline {
                 script {
                     runJest(
                         NODE_VERSION,
-                        TEST_DIR,
-                        REQUIREMENTS_FILE
+                        TEST_DIR
                     )
                 }
             }

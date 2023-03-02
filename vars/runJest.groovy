@@ -1,4 +1,4 @@
-def call(String TEST_DIR, String JEST_ARGS, String TARGET = "/tmp/target") {
+def call(String NODE_VERSION, TEST_DIR, String JEST_ARGS, String TARGET = "/tmp/target") {
   // checks if all the required arguments are provided
   if (TEST_DIR == "") {
     echo "The following variables must be present when using this Project: TEST_DIR"
@@ -14,13 +14,13 @@ def call(String TEST_DIR, String JEST_ARGS, String TARGET = "/tmp/target") {
 
   // write file contents of the TEST_DIR to the test directory of agent
   def test_contents = libraryResource "${PACKAGE_DIR}/${PACKAGE_FILE}"
-  writeFile file: "${TARGET}/${TEST_DIR}/${PACKAGE_FILE}", text: test_contents
+  writeFile file: "${TARGET}/${PACKAGE_DIR}/${TEST_DIR}/${PACKAGE_FILE}", text: test_contents
 
   // navigate to TEST_DIR directory and run Jest
-  sh "npm init -y --prefix ${TARGET}/${TEST_DIR}"
-  sh "npm install jest --save-dev --prefix ${TARGET}/${TEST_DIR}"
-  sh "npm pkg set 'scripts.test'='jest' --prefix ${TARGET}/${TEST_DIR}"
-  sh "npm test --prefix ${TARGET}/${TEST_DIR}"
+  sh "npm init -y --prefix ${TARGET}/${PACKAGE_DIR}/${TEST_DIR}"
+  sh "npm install jest --save-dev --prefix ${TARGET}/${PACKAGE_DIR}/${TEST_DIR}"
+  sh "npm pkg set 'scripts.test'='jest' --prefix ${TARGET}/${PACKAGE_DIR}/${TEST_DIR}"
+  sh "npm test --prefix ${TARGET}/${PACKAGE_DIR}/${TEST_DIR}"
 
   // define a reports map for the Jest XML report
   def reports = junit testResults: 'reports/test-results.xml'
