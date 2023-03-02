@@ -32,7 +32,7 @@ pipeline {
         stage('Run Jest') {
             steps {
                 script {
-                    runPytest(
+                    runJest(
                         NODE_VERSION,
                         TEST_DIR,
                         REQUIREMENTS_FILE
