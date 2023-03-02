@@ -22,9 +22,11 @@ def call(String NODE_VERSION, String TEST_DIR, String JEST_ARGS, String TARGET =
     sh "npm init -y --prefix ${TARGET}/${PACKAGE_DIR}/${TEST_DIR}"
     sh "npm install jest --save-dev --prefix ${TARGET}/${PACKAGE_DIR}/${TEST_DIR}"
     sh "npm pkg set 'scripts.test'='jest' --prefix ${TARGET}/${PACKAGE_DIR}/${TEST_DIR}"
-    sh "npm test --prefix ${TARGET}/${PACKAGE_DIR}/${TEST_DIR}"
+
+    // run the test
+    sh "npm test --prefix ${TARGET}/${PACKAGE_DIR}/${TEST_DIR} --junitxml=reports/report_${env.BUILD_ID}_${BUILD_TIMESTAMP}.xml ${JEST_ARGS}"
 
     // define a reports map for the Jest XML report
-    def reports = junit testResults: 'reports/test-results.xml'
-    step([$class: 'JUnitResultArchiver', testResults: 'reports/test-results.xml']) // use JUnitResultArchiver Plugin to archive
+    def reports = junit testResults: 'reports/*.xml'
+    step([$class: 'JUnitResultArchiver', testResults: 'reports/*.xml']) // use JUnitResultArchiver Plugin to archive
 }
