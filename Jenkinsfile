@@ -5,9 +5,9 @@ pipeline {
 
     // add the environment variables in Jenkins UI and reference them in this Jenkinsfile
     environment {
-        NODE_VERSION = "14.x"
+        NODE_VERSION = "18.x"
         PACKAGE_DIR = 'lambda'
-        PACKAGE_FILE = 'lambda_node.js'
+        PACKAGE_FILE = 'node.test.js'
         REQUIREMENTS_FILE = 'requirements.txt'
         S3_ARTIFACT_BUCKET_NAME = "${S3_ARTIFACT_BUCKET_NAME}"
         S3_ARTIFACT_OUTPUT_PATH = "${S3_ARTIFACT_OUTPUT_PATH}"
@@ -29,19 +29,18 @@ pipeline {
                 }
             }
         }
+        stage('Run Jest') {
+            steps {
+                script {
+                    runPytest(
+                        NODE_VERSION,
+                        TEST_DIR,
+                        REQUIREMENTS_FILE
+                    )
+                }
+            }
+        }
     }
-//         stage('Run Jest') {
-//             steps {
-//                 script {
-//                     runPytest(
-//                         NODE_VERSION,
-//                         TEST_DIR,
-//                         REQUIREMENTS_FILE
-//                     )
-//                 }
-//             }
-//         }
-//     }
     post {
         always {
             archiveArtifacts "*.gz, *.zip, *.base64sha256"
