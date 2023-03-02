@@ -1,4 +1,4 @@
-// prerequisites TBR: NPM, pip, zip, openssl, boto3 and AWS credentials should already set up in the Jenkins environment.
+// prerequisites: node, npm, nano, curl, zip, boto3 and AWS credentials should already set up in the Jenkins environment.
 def call(String NODE_VERSION, String PACKAGE_DIR, String PACKAGE_FILE, String TARGET = "/tmp/target", String S3_ARTIFACT_BUCKET_NAME, String S3_ARTIFACT_OUTPUT_PATH) {
     sh "env | sort"
 
@@ -23,8 +23,8 @@ def call(String NODE_VERSION, String PACKAGE_DIR, String PACKAGE_FILE, String TA
     writeFile file: "${TARGET}/${PACKAGE_DIR}/${PACKAGE_FILE}", text: packagecontents
 
     // navigate to PACKAGE_DIR directory and install dependencies using npm
-    sh "npm install --prefix ${TARGET}/${PACKAGE_DIR}"
-    echo "Dependencies installed"
+//     sh "npm install --prefix ${TARGET}/${PACKAGE_DIR}"
+//     echo "Dependencies installed"
 
     // create tar file of package directory and place in target directory
     sh "tar -czf ${TARGET}/package.tar.gz ${TARGET}/${PACKAGE_DIR}"
