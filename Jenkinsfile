@@ -7,11 +7,7 @@ pipeline {
         stage('Npm Install') {
             steps {
                 script {
-                    npmInstall(
-                        NODE_VERSION,
-                        PACKAGE_DIR,
-                        PACKAGE_FILE
-                    )
+                    npmInstall()
                 }
             }
         }
